@@ -1,0 +1,48 @@
+[gd_scene load_steps=7 format=3 uid="uid://dl0ih7r0riixl"]
+
+[ext_resource type="Texture2D" uid="uid://tyifk4fqmcmr" path="res://assets/Tanks/tanks_turret1.png" id="1_eauhi"]
+[ext_resource type="Script" path="res://tank.gd" id="1_gaueu"]
+[ext_resource type="Texture2D" uid="uid://br38co4bj7jj8" path="res://assets/Tanks/tanks_tankTracks2.png" id="2_dsf44"]
+[ext_resource type="Texture2D" uid="uid://d3d5ojdytywrh" path="res://assets/Tanks/tanks_tankGrey_body1.png" id="3_1bi3m"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_npkdf"]
+rough = true
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_k3cti"]
+radius = 26.0
+height = 144.0
+
+[node name="Tank" type="RigidBody2D"]
+mass = 20.0
+physics_material_override = SubResource("PhysicsMaterial_npkdf")
+center_of_mass_mode = 1
+center_of_mass = Vector2(0, 20)
+can_sleep = false
+contact_monitor = true
+max_contacts_reported = 8
+angular_damp = 1.0
+script = ExtResource("1_gaueu")
+
+[node name="TanksTurret1" type="Sprite2D" parent="."]
+position = Vector2(13, -77)
+texture = ExtResource("1_eauhi")
+offset = Vector2(32, 0)
+
+[node name="BulletSpawn" type="Marker2D" parent="TanksTurret1"]
+position = Vector2(71, 0)
+
+[node name="TanksTankTracks2" type="Sprite2D" parent="."]
+position = Vector2(0, -8)
+texture = ExtResource("2_dsf44")
+
+[node name="TanksTankGreyBody1" type="Sprite2D" parent="."]
+position = Vector2(0, -43)
+texture = ExtResource("3_1bi3m")
+
+[node name="ChassisCollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2(0, -43)
+polygon = PackedVector2Array(-56, -47, -4, -48, 64, -20, 81, 17, 68, 39, -80, 39, -80, 11, -56, -22)
+
+[node name="TracksCollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_k3cti")
