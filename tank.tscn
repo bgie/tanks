@@ -13,7 +13,6 @@ radius = 26.0
 height = 144.0
 
 [node name="Tank" type="RigidBody2D"]
-collision_mask = 3
 mass = 20.0
 physics_material_override = SubResource("PhysicsMaterial_npkdf")
 center_of_mass_mode = 1
@@ -33,6 +32,8 @@ offset = Vector2(32, 0)
 position = Vector2(71, 0)
 
 [node name="CooldownTimer" type="Timer" parent="Turret"]
+wait_time = 0.5
+one_shot = true
 
 [node name="Tracks" type="Sprite2D" parent="."]
 position = Vector2(0, -8)
