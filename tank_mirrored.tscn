@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://io1spilb4pl4"]
+
+[ext_resource type="PackedScene" uid="uid://cdh4jfugrv74d" path="res://tank.tscn" id="1_aft1m"]
+[ext_resource type="Texture2D" uid="uid://0v1ic1jn1un4" path="res://assets/Tanks/tanks_tankNavy_body1.png" id="2_g1fig"]
+
+[node name="Tank" instance=ExtResource("1_aft1m")]
+
+[node name="Turret" parent="." index="0"]
+position = Vector2(-13, -77)
+offset = Vector2(-32, 0)
+flip_h = true
+
+[node name="BulletSpawn" parent="Turret" index="0"]
+position = Vector2(-71, 0)
+rotation = 3.14159
+
+[node name="Body" parent="." index="2"]
+texture = ExtResource("2_g1fig")
+flip_h = true
+
+[node name="BodyCollisionPolygon" parent="." index="3"]
+polygon = PackedVector2Array(56, -47, 4, -48, -64, -20, -81, 17, -68, 39, 80, 39, 80, 11, 56, -22)
