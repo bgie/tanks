@@ -11,3 +11,8 @@ func _integrate_forces(state: PhysicsDirectBodyState2D):
 		elif wind_resistance_angle < PI:
 			wind_resistance_angle += 2*PI
 		state.apply_torque(wind_resistance_angle * wind_resistance_angle * speed * WIND_RESISTANCE_FACTOR * mass)
+
+func _on_warhead_area_body_entered(body: Node2D) -> void:
+	if body != self:
+		Explosion.spawn(self)
+		queue_free()

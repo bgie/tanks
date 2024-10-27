@@ -7,7 +7,6 @@
 [ext_resource type="PackedScene" uid="uid://bunj54mp6x87n" path="res://barrel.tscn" id="5_co81j"]
 
 [node name="World" type="Node2D"]
-physics_interpolation_mode = 2
 script = ExtResource("1_of0qu")
 
 [node name="Camera2D" type="Camera2D" parent="."]

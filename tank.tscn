@@ -29,10 +29,10 @@ texture = ExtResource("2_ksi6o")
 offset = Vector2(32, 0)
 
 [node name="BulletSpawn" type="Marker2D" parent="Turret"]
-position = Vector2(71, 0)
+position = Vector2(83, -1)
 
 [node name="CooldownTimer" type="Timer" parent="Turret"]
-wait_time = 0.5
+wait_time = 0.3
 one_shot = true
 
 [node name="Tracks" type="Sprite2D" parent="."]

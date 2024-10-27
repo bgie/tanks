@@ -10,12 +10,12 @@ extends RigidBody2D
 @export var turrent_max_angle: float = 0.0
 
 const FULL_MOTOR_POWER: float = 40_000
-const MIN_POWER: float = 4_000
+const MIN_MOTOR_POWER: float = 4_000
 const MAX_VELOCITY: float = 300
 
 const TURRET_ROTATE_SPEED: float = 50.0
-const FIRE_IMPULSE = Vector2(1400, 0)
-const RECOIL_EXAGGERATION = 3.0
+const FIRE_IMPULSE = Vector2(1600, 0)
+const RECOIL_EXAGGERATION = 2.5
 
 var bullet_scene = preload("res://bullet.tscn")
 
@@ -52,7 +52,7 @@ func _integrate_forces(state: PhysicsDirectBodyState2D):
 				var local_velocity := state.get_contact_local_velocity_at_position(i)
 				var requested_speed_reached := motor_force_vector.dot(local_velocity) / MAX_VELOCITY
 				var motor_power = FULL_MOTOR_POWER * (1 - requested_speed_reached)
-				motor_power = clamp(motor_power, MIN_POWER, FULL_MOTOR_POWER)
+				motor_power = clamp(motor_power, MIN_MOTOR_POWER, FULL_MOTOR_POWER)
 				self.apply_force(motor_force_vector * motor_power / contact_count, contact_pos)
 
 func _ready() -> void:
