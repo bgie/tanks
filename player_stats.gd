@@ -22,3 +22,15 @@ func update_ammo_animated(new_value: int) -> void:
 func update_armor_animated(new_value: int) -> void:
 	armor = new_value
 	$ArmorContainer/AnimationPlayer.play("hit")
+
+func _on_ammo_animation_finished(anim_name: StringName) -> void:
+	if anim_name == "fired":
+		if ammo == 1:
+			$AmmoContainer/AnimationPlayer.play("warning")
+		elif ammo == 0:
+			$AmmoContainer/AnimationPlayer.play("empty")
+
+func _on_armor_animation_finished(anim_name: StringName) -> void:
+	if anim_name == "hit":
+		if armor == 1:
+			$ArmorContainer/AnimationPlayer.play("warning")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://bmmpllfs77v31"]
+[gd_scene load_steps=15 format=3 uid="uid://bmmpllfs77v31"]
 
 [ext_resource type="Script" path="res://player_stats.gd" id="2_60hkx"]
 [ext_resource type="Texture2D" uid="uid://dv256rxt7vpl6" path="res://assets/Tanks/ammo.png" id="2_tmols"]
@@ -40,13 +40,48 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.1, 0.4),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [Color(0.72399, 0.475954, 0, 1), Color(0.72399, 0.475954, 0, 1), Color(1, 1, 1, 1)]
+"values": [Color(1, 0.8, 0, 1), Color(1, 0.8, 0, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_ien1c"]
+resource_name = "empty"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AmmoLabel:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(0.968627, 0.317647, 0.25098, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_w5t2t"]
+resource_name = "warning"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AmmoLabel:modulate")
+tracks/0/interp = 0
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 0.8, 0, 1), Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_e3oib"]
 _data = {
 "RESET": SubResource("Animation_2xfqc"),
-"fired": SubResource("Animation_0f0xi")
+"empty": SubResource("Animation_ien1c"),
+"fired": SubResource("Animation_0f0xi"),
+"warning": SubResource("Animation_w5t2t")
 }
 
 [sub_resource type="Animation" id="Animation_yxl5n"]
@@ -80,10 +115,28 @@ tracks/0/keys = {
 "values": [Color(0.968627, 0.317647, 0.25098, 1), Color(1, 1, 1, 1), Color(0.968627, 0.317647, 0.25098, 1), Color(1, 1, 1, 1), Color(0.968627, 0.317647, 0.25098, 1), Color(1, 1, 1, 1), Color(0.968627, 0.317647, 0.25098, 1), Color(1, 1, 1, 1)]
 }
 
+[sub_resource type="Animation" id="Animation_dr1k3"]
+resource_name = "warning"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ArmorLabel:modulate")
+tracks/0/interp = 0
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(0.968627, 0.317647, 0.25098, 1), Color(1, 1, 1, 1)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_omf57"]
 _data = {
 "RESET": SubResource("Animation_yxl5n"),
-"hit": SubResource("Animation_35d1k")
+"hit": SubResource("Animation_35d1k"),
+"warning": SubResource("Animation_dr1k3")
 }
 
 [node name="PlayerStats" type="HBoxContainer"]
@@ -149,3 +202,6 @@ vertical_alignment = 1
 libraries = {
 "": SubResource("AnimationLibrary_omf57")
 }
+
+[connection signal="animation_finished" from="AmmoContainer/AnimationPlayer" to="." method="_on_ammo_animation_finished"]
+[connection signal="animation_finished" from="ArmorContainer/AnimationPlayer" to="." method="_on_armor_animation_finished"]
