@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=4 uid="uid://cg5i6xjkeb08k"]
+[gd_scene load_steps=12 format=4 uid="uid://cg5i6xjkeb08k"]
 
 [ext_resource type="TileSet" uid="uid://sq2wt61uq0l7" path="res://tileset.tres" id="1_g2hva"]
 [ext_resource type="Script" path="res://world.gd" id="1_of0qu"]
@@ -6,10 +6,19 @@
 [ext_resource type="PackedScene" uid="uid://io1spilb4pl4" path="res://tank_mirrored.tscn" id="3_v3wg7"]
 [ext_resource type="PackedScene" uid="uid://bunj54mp6x87n" path="res://barrel.tscn" id="5_co81j"]
 [ext_resource type="FontFile" uid="uid://bnvh5pxawm7hh" path="res://assets/Kenney Bold.ttf" id="6_vxoo7"]
+[ext_resource type="Script" path="res://water.gd" id="6_w6pv2"]
 [ext_resource type="PackedScene" uid="uid://bmmpllfs77v31" path="res://player_stats.tscn" id="7_s5p6o"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_ufhjm"]
 distance = -653.0
+
+[sub_resource type="LabelSettings" id="LabelSettings_46vy5"]
+line_spacing = 12.0
+font = ExtResource("6_vxoo7")
+font_size = 64
+outline_size = 8
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 0
 
 [sub_resource type="LabelSettings" id="LabelSettings_hjutv"]
 font = ExtResource("6_vxoo7")
@@ -88,11 +97,70 @@ linear_damp_space_override = 1
 linear_damp = 1.0
 angular_damp_space_override = 3
 angular_damp = 0.0
+script = ExtResource("6_w6pv2")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WaterArea"]
 shape = SubResource("WorldBoundaryShape2D_ufhjm")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="GetReadyLabel" type="Label" parent="CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -546.0
+offset_top = -102.0
+offset_right = 546.0
+offset_bottom = 102.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Get Ready!"
+label_settings = SubResource("LabelSettings_46vy5")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Timer" type="Timer" parent="CanvasLayer/GetReadyLabel"]
+wait_time = 1.5
+one_shot = true
+autostart = true
+
+[node name="WinOverlay" type="ColorRect" parent="CanvasLayer"]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.376471)
+
+[node name="WinLabel" type="Label" parent="CanvasLayer/WinOverlay"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -546.0
+offset_top = -102.0
+offset_right = 546.0
+offset_bottom = 102.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Player X
+wins!"
+label_settings = SubResource("LabelSettings_46vy5")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RestartTimer" type="Timer" parent="CanvasLayer/WinOverlay"]
+wait_time = 3.0
+one_shot = true
+
+[node name="WinMessageTimer" type="Timer" parent="CanvasLayer/WinOverlay"]
+wait_time = 2.0
+one_shot = true
 
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayer"]
 anchors_preset = 15
@@ -142,4 +210,7 @@ alignment = 2
 [connection signal="ammo_changed" from="Units/Tank2" to="CanvasLayer/MarginContainer/Player2Container/PlayerStats" method="update_ammo_animated"]
 [connection signal="armor_changed" from="Units/Tank2" to="CanvasLayer/MarginContainer/Player2Container/PlayerStats" method="update_armor_animated"]
 [connection signal="died" from="Units/Tank2" to="." method="_on_tank_2_died"]
-[connection signal="body_entered" from="WaterArea" to="." method="_on_water_area_body_entered"]
+[connection signal="body_entered" from="WaterArea" to="WaterArea" method="_on_body_entered"]
+[connection signal="timeout" from="CanvasLayer/GetReadyLabel/Timer" to="CanvasLayer/GetReadyLabel" method="hide"]
+[connection signal="timeout" from="CanvasLayer/WinOverlay/RestartTimer" to="." method="_on_restart_timer_timeout"]
+[connection signal="timeout" from="CanvasLayer/WinOverlay/WinMessageTimer" to="." method="_on_win_message_timer_timeout"]
