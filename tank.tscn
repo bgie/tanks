@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://cdh4jfugrv74d"]
+[gd_scene load_steps=9 format=3 uid="uid://cdh4jfugrv74d"]
 
 [ext_resource type="Script" path="res://tank.gd" id="1_7i8ij"]
 [ext_resource type="Texture2D" uid="uid://tyifk4fqmcmr" path="res://assets/Tanks/tanks_turret1.png" id="2_ksi6o"]
@@ -11,6 +11,18 @@ rough = true
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_k3cti"]
 radius = 26.0
 height = 144.0
+
+[sub_resource type="Gradient" id="Gradient_bfuy0"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_nr8ak"]
+gradient = SubResource("Gradient_bfuy0")
+width = 1024
+height = 1024
+use_hdr = true
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 0)
 
 [node name="Tank" type="RigidBody2D"]
 mass = 20.0
@@ -50,3 +62,8 @@ polygon = PackedVector2Array(-56, -47, -4, -48, 64, -20, 81, 17, 68, 39, -80, 39
 [node name="TracksCollisionShape" type="CollisionShape2D" parent="."]
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_k3cti")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.505882)
+z_index = -1
+texture = SubResource("GradientTexture2D_nr8ak")

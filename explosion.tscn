@@ -85,7 +85,7 @@ _data = {
 }
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_02c08"]
-radius = 150.0
+radius = 100.0
 
 [node name="Explosion" type="Area2D"]
 collision_layer = 0

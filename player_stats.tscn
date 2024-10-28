@@ -1,0 +1,66 @@
+[gd_scene load_steps=6 format=3 uid="uid://bmmpllfs77v31"]
+
+[ext_resource type="Script" path="res://player_stats.gd" id="2_60hkx"]
+[ext_resource type="Texture2D" uid="uid://dv256rxt7vpl6" path="res://assets/Tanks/ammo.png" id="2_tmols"]
+[ext_resource type="Texture2D" uid="uid://wf6oqtsq8kj6" path="res://assets/Tanks/armor.png" id="3_2ggwh"]
+[ext_resource type="FontFile" uid="uid://bnvh5pxawm7hh" path="res://assets/Kenney Bold.ttf" id="4_63sno"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_i4vbn"]
+font = ExtResource("4_63sno")
+font_size = 24
+outline_size = 3
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 0
+
+[node name="PlayerStats" type="HBoxContainer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -34.0
+offset_top = -34.0
+offset_right = 34.0
+offset_bottom = 34.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 16
+script = ExtResource("2_60hkx")
+
+[node name="AmmoIcon" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("2_tmols")
+expand_mode = 1
+
+[node name="AmmoContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_top = 8
+
+[node name="AmmoLabel" type="Label" parent="AmmoContainer"]
+custom_minimum_size = Vector2(90, 0)
+layout_mode = 2
+text = "999"
+label_settings = SubResource("LabelSettings_i4vbn")
+vertical_alignment = 1
+
+[node name="ArmorIcon" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("3_2ggwh")
+expand_mode = 1
+
+[node name="ArmorContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_top = 8
+
+[node name="ArmorLabel" type="Label" parent="ArmorContainer"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+text = "99"
+label_settings = SubResource("LabelSettings_i4vbn")
+vertical_alignment = 1
