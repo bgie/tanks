@@ -77,7 +77,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
 "update": 0,
-"values": [Color(1, 0, 0, 1), Color(1, 1, 1, 1), Color(1, 0, 0, 1), Color(1, 1, 1, 1), Color(1, 0, 0, 1), Color(1, 1, 1, 1), Color(1, 0, 0, 1), Color(1, 1, 1, 1)]
+"values": [Color(0.968627, 0.317647, 0.25098, 1), Color(1, 1, 1, 1), Color(0.968627, 0.317647, 0.25098, 1), Color(1, 1, 1, 1), Color(0.968627, 0.317647, 0.25098, 1), Color(1, 1, 1, 1), Color(0.968627, 0.317647, 0.25098, 1), Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_omf57"]
@@ -98,7 +98,7 @@ offset_right = 34.0
 offset_bottom = 34.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/separation = 16
+theme_override_constants/separation = 12
 script = ExtResource("2_60hkx")
 
 [node name="AmmoIcon" type="TextureRect" parent="."]
@@ -114,10 +114,10 @@ layout_mode = 2
 theme_override_constants/margin_top = 8
 
 [node name="AmmoLabel" type="Label" parent="AmmoContainer"]
-custom_minimum_size = Vector2(90, 0)
+custom_minimum_size = Vector2(60, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
-text = "999"
+text = "99"
 label_settings = SubResource("LabelSettings_i4vbn")
 vertical_alignment = 1
 
@@ -139,9 +139,9 @@ layout_mode = 2
 theme_override_constants/margin_top = 8
 
 [node name="ArmorLabel" type="Label" parent="ArmorContainer"]
-custom_minimum_size = Vector2(50, 0)
+custom_minimum_size = Vector2(30, 0)
 layout_mode = 2
-text = "99"
+text = "9"
 label_settings = SubResource("LabelSettings_i4vbn")
 vertical_alignment = 1
 

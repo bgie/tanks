@@ -1,9 +1,15 @@
-[gd_scene load_steps=9 format=3 uid="uid://cdh4jfugrv74d"]
+[gd_scene load_steps=14 format=3 uid="uid://cdh4jfugrv74d"]
 
+[ext_resource type="Shader" path="res://tank.gdshader" id="1_6gex0"]
 [ext_resource type="Script" path="res://tank.gd" id="1_7i8ij"]
 [ext_resource type="Texture2D" uid="uid://tyifk4fqmcmr" path="res://assets/Tanks/tanks_turret1.png" id="2_ksi6o"]
 [ext_resource type="Texture2D" uid="uid://br38co4bj7jj8" path="res://assets/Tanks/tanks_tankTracks2.png" id="3_4ti05"]
 [ext_resource type="Texture2D" uid="uid://d3d5ojdytywrh" path="res://assets/Tanks/tanks_tankGrey_body1.png" id="4_i8fab"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_b6ban"]
+resource_local_to_scene = true
+shader = ExtResource("1_6gex0")
+shader_parameter/color = Color(0.815686, 0.356863, 0.309804, 0)
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_npkdf"]
 rough = true
@@ -24,7 +30,45 @@ fill = 1
 fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(0.5, 0)
 
+[sub_resource type="Animation" id="Animation_v2xa2"]
+resource_name = "hit"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material:shader_parameter/color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(0.968627, 0.317647, 0.25098, 1), Color(0.968627, 0.317647, 0.25098, 1), Color(0.815686, 0.356863, 0.309804, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_l5rdt"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material:shader_parameter/color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.815686, 0.356863, 0.309804, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_6hv1e"]
+_data = {
+"RESET": SubResource("Animation_l5rdt"),
+"hit": SubResource("Animation_v2xa2")
+}
+
 [node name="Tank" type="RigidBody2D"]
+material = SubResource("ShaderMaterial_b6ban")
 collision_layer = 5
 mass = 20.0
 physics_material_override = SubResource("PhysicsMaterial_npkdf")
@@ -37,6 +81,7 @@ angular_damp = 1.0
 script = ExtResource("1_7i8ij")
 
 [node name="Turret" type="Sprite2D" parent="."]
+use_parent_material = true
 position = Vector2(13, -77)
 texture = ExtResource("2_ksi6o")
 offset = Vector2(32, 0)
@@ -49,22 +94,31 @@ wait_time = 0.3
 one_shot = true
 
 [node name="Tracks" type="Sprite2D" parent="."]
+use_parent_material = true
 position = Vector2(0, -8)
 texture = ExtResource("3_4ti05")
 
 [node name="Body" type="Sprite2D" parent="."]
+use_parent_material = true
 position = Vector2(0, -43)
 texture = ExtResource("4_i8fab")
 
 [node name="BodyCollisionPolygon" type="CollisionPolygon2D" parent="."]
+visible = false
 position = Vector2(0, -43)
 polygon = PackedVector2Array(-56, -47, -4, -48, 64, -20, 81, 17, 68, 39, -80, 39, -80, 11, -56, -22)
 
 [node name="TracksCollisionShape" type="CollisionShape2D" parent="."]
+visible = false
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_k3cti")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="WhiteHalo" type="Sprite2D" parent="."]
 modulate = Color(1, 1, 1, 0.505882)
 z_index = -1
 texture = SubResource("GradientTexture2D_nr8ak")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_6hv1e")
+}

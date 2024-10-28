@@ -1,9 +1,16 @@
-[gd_scene load_steps=3 format=3 uid="uid://io1spilb4pl4"]
+[gd_scene load_steps=5 format=3 uid="uid://io1spilb4pl4"]
 
 [ext_resource type="PackedScene" uid="uid://cdh4jfugrv74d" path="res://tank.tscn" id="1_aft1m"]
 [ext_resource type="Texture2D" uid="uid://0v1ic1jn1un4" path="res://assets/Tanks/tanks_tankNavy_body1.png" id="2_g1fig"]
+[ext_resource type="Shader" path="res://tank.gdshader" id="2_gdkdl"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5tnj0"]
+resource_local_to_scene = true
+shader = ExtResource("2_gdkdl")
+shader_parameter/color = Color(0.815686, 0.356863, 0.309804, 0)
 
 [node name="Tank" instance=ExtResource("1_aft1m")]
+material = SubResource("ShaderMaterial_5tnj0")
 
 [node name="Turret" parent="." index="0"]
 position = Vector2(-13, -77)

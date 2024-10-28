@@ -28,6 +28,7 @@ signal ammo_changed(new_value: int)
 			return
 		armor = v
 		armor_changed.emit(v)
+		$AnimationPlayer.play("hit")
 		if armor == 0:
 			died.emit()
 
