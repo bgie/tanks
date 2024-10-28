@@ -9,6 +9,24 @@ extends RigidBody2D
 @export var turret_min_angle: float = -60.0
 @export var turrent_max_angle: float = 0.0
 
+@export var ammo := 30 :
+	get:
+		return ammo
+	set(v):
+		ammo = v
+		ammo_changed.emit(v)
+
+signal ammo_changed(new_value: int)
+
+@export var armor := 5 :
+	get:
+		return armor
+	set(v):
+		armor = v
+		armor_changed.emit(v)
+
+signal armor_changed(new_value: int)
+
 const FULL_MOTOR_POWER: float = 40_000
 const MIN_MOTOR_POWER: float = 4_000
 const MAX_VELOCITY: float = 300
@@ -27,7 +45,8 @@ func _physics_process(delta: float) -> void:
 	var turret_movement = Input.get_axis(turret_up_action, turret_down_action) * delta * TURRET_ROTATE_SPEED
 	turret.rotation_degrees = clamp(turret.rotation_degrees + turret_movement, turret_min_angle, turrent_max_angle)
 
-	if Input.is_action_pressed(fire_action) && turret_cooldown_timer.is_stopped():
+	if Input.is_action_pressed(fire_action) && turret_cooldown_timer.is_stopped() && ammo > 0:
+		ammo -= 1
 		turret_cooldown_timer.start()
 		var bullet = bullet_scene.instantiate()
 		bullet.position = bullet_spawn.global_position

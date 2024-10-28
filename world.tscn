@@ -116,3 +116,8 @@ horizontal_alignment = 2
 [node name="PlayerStats" parent="CanvasLayer/MarginContainer/Player2Container" instance=ExtResource("7_s5p6o")]
 layout_mode = 2
 alignment = 2
+
+[connection signal="ammo_changed" from="Units/Tank1" to="CanvasLayer/MarginContainer/Player1Container/PlayerStats" method="update_ammo_animated"]
+[connection signal="armor_changed" from="Units/Tank1" to="CanvasLayer/MarginContainer/Player1Container/PlayerStats" method="update_armor_animated"]
+[connection signal="ammo_changed" from="Units/Tank2" to="CanvasLayer/MarginContainer/Player2Container/PlayerStats" method="update_ammo_animated"]
+[connection signal="armor_changed" from="Units/Tank2" to="CanvasLayer/MarginContainer/Player2Container/PlayerStats" method="update_armor_animated"]
