@@ -14,5 +14,8 @@ func _integrate_forces(state: PhysicsDirectBodyState2D):
 
 func _on_warhead_area_body_entered(body: Node2D) -> void:
 	if body != self:
-		Explosion.spawn(self)
-		queue_free()
+		explode()
+
+func explode() -> void:
+	Explosion.spawn(self)
+	queue_free()

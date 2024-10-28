@@ -70,6 +70,12 @@ player2_fire={
 ]
 }
 
+[layer_names]
+
+2d_physics/layer_1="Solid body"
+2d_physics/layer_2="Water"
+2d_physics/layer_3="Explodable"
+
 [rendering]
 
 environment/defaults/default_clear_color=Color(0.659908, 0.744964, 0.934567, 1)

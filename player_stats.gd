@@ -1,4 +1,3 @@
-@tool
 class_name PlayerStats
 extends HBoxContainer
 
@@ -22,3 +21,4 @@ func update_ammo_animated(new_value: int) -> void:
 
 func update_armor_animated(new_value: int) -> void:
 	armor = new_value
+	$ArmorContainer/AnimationPlayer.play("hit")

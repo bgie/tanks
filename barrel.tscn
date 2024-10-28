@@ -1,12 +1,15 @@
-[gd_scene load_steps=3 format=3 uid="uid://bunj54mp6x87n"]
+[gd_scene load_steps=4 format=3 uid="uid://bunj54mp6x87n"]
 
 [ext_resource type="Texture2D" uid="uid://brwb72fg0xtg7" path="res://assets/Tanks/tanks_barrelGrey.png" id="1_utm8g"]
+[ext_resource type="Script" path="res://barrel.gd" id="1_vi4rv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_r6uve"]
 size = Vector2(74, 94)
 
 [node name="Barrel" type="RigidBody2D"]
+collision_layer = 5
 mass = 5.0
+script = ExtResource("1_vi4rv")
 
 [node name="TanksBarrelGrey" type="Sprite2D" parent="."]
 texture = ExtResource("1_utm8g")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://bxga4lrig2y7p"]
+[gd_scene load_steps=13 format=3 uid="uid://bxga4lrig2y7p"]
 
 [ext_resource type="Texture2D" uid="uid://5ryqilsjx78g" path="res://assets/Tanks/tank_explosion5.png" id="1_dtk6f"]
 [ext_resource type="Script" path="res://explosion.gd" id="1_vmw5v"]
@@ -87,6 +87,9 @@ _data = {
 [sub_resource type="CircleShape2D" id="CircleShape2D_02c08"]
 radius = 100.0
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_dkjy3"]
+radius = 70.0
+
 [node name="Explosion" type="Area2D"]
 collision_layer = 0
 input_pickable = false
@@ -96,8 +99,7 @@ script = ExtResource("1_vmw5v")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_3pl0h")
 autoplay = "default"
-frame = 5
-frame_progress = 1.0
+frame = 3
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -107,3 +109,14 @@ autoplay = "default"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_02c08")
+
+[node name="ExplosionArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ExplosionArea"]
+shape = SubResource("CircleShape2D_dkjy3")
+debug_color = Color(0.804665, 0.186888, 0, 0.42)
+
+[connection signal="body_entered" from="ExplosionArea" to="." method="_on_explosion_area_body_entered"]

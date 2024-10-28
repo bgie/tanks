@@ -6,11 +6,13 @@ const MIN_BLAST_RADIUS := 10.0
 
 @onready var blast_radius: float = $CollisionShape2D.shape.radius
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
+@onready var explosion_area: Area2D = $ExplosionArea
 
-static func spawn(source: Node2D) -> void:
+static func spawn(source: Node2D) -> Node2D:
 	var explosion = scene.instantiate()
 	explosion.position = source.global_position
 	source.get_parent().add_child.call_deferred(explosion)
+	return explosion
 
 func _physics_process(delta: float) -> void:
 	for body in get_overlapping_bodies():
@@ -24,3 +26,8 @@ func _ready() -> void:
 
 func explosion_finished() -> void:
 	self.set_physics_process(false)
+	explosion_area.monitoring = false
+
+func _on_explosion_area_body_entered(body: Node2D) -> void:
+	if body.has_method("explode"):
+		body.explode()

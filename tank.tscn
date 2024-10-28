@@ -25,6 +25,7 @@ fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(0.5, 0)
 
 [node name="Tank" type="RigidBody2D"]
+collision_layer = 5
 mass = 20.0
 physics_material_override = SubResource("PhysicsMaterial_npkdf")
 center_of_mass_mode = 1

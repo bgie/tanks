@@ -13,6 +13,8 @@ extends RigidBody2D
 	get:
 		return ammo
 	set(v):
+		if ammo == v:
+			return
 		ammo = v
 		ammo_changed.emit(v)
 
@@ -22,10 +24,15 @@ signal ammo_changed(new_value: int)
 	get:
 		return armor
 	set(v):
+		if armor == v:
+			return
 		armor = v
 		armor_changed.emit(v)
+		if armor == 0:
+			died.emit()
 
 signal armor_changed(new_value: int)
+signal died()
 
 const FULL_MOTOR_POWER: float = 40_000
 const MIN_MOTOR_POWER: float = 4_000
@@ -78,3 +85,13 @@ func _ready() -> void:
 	# Different tanks would use the same resource, and share settings. We dont want that,
 	#  because we will change the friction setting per tank
 	self.physics_material_override = self.physics_material_override.duplicate()
+
+func explode() -> void:
+	if armor > 0:
+		armor -= 1
+		if armor == 0:
+			Explosion.spawn(self)
+			queue_free()
+
+func drown() -> void:
+	armor = 0
