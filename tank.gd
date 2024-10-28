@@ -40,7 +40,8 @@ const MAX_VELOCITY: float = 300
 
 const TURRET_ROTATE_SPEED: float = 50.0
 const FIRE_IMPULSE = Vector2(1600, 0)
-const RECOIL_EXAGGERATION = 2.5
+const RECOIL_EXAGGERATION := 2.5
+const DEATH_EXPLOSION_SIZE := 1.6
 
 var bullet_scene = preload("res://bullet.tscn")
 
@@ -89,8 +90,9 @@ func _ready() -> void:
 func explode() -> void:
 	if armor > 0:
 		armor -= 1
+		Explosion.camera_shake_amount += Explosion.LARGE_EXPLOSION_SHAKE
 		if armor == 0:
-			Explosion.spawn(self)
+			Explosion.spawn(self, DEATH_EXPLOSION_SIZE)
 			queue_free()
 
 func drown() -> void:

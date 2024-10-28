@@ -8,8 +8,15 @@ const MIN_BLAST_RADIUS := 10.0
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 @onready var explosion_area: Area2D = $ExplosionArea
 
-static func spawn(source: Node2D) -> Node2D:
+const MINOR_EXPLOSION_SHAKE := 0.20
+const LARGE_EXPLOSION_SHAKE := 0.7
+const MAXIMUM_TOTAL_EXPLOSION_SHAKE := 1.2
+static var camera_shake_amount := 0.0
+
+static func spawn(source: Node2D, size: float = 1.0) -> Node2D:
+	camera_shake_amount += MINOR_EXPLOSION_SHAKE
 	var explosion = scene.instantiate()
+	explosion.scale = Vector2(size, size)
 	explosion.position = source.global_position
 	source.get_parent().add_child.call_deferred(explosion)
 	return explosion

@@ -15,16 +15,32 @@ extends Node2D
 @onready var restart_timer: Timer = $CanvasLayer/WinOverlay/RestartTimer
 
 var active_players := 2
+var camera_initial_offset : Vector2
+var shaking := false
 
+const CAMERA_SHAKE_MAGNITUDE := 20.0
+const CAMERA_ROTATE_MAGNITUDE := 2.0
 const BORDER_SIZE := 400
 
 func _ready() -> void:
+	camera_initial_offset = camera.offset
 	player_1_stats.ammo = tank_1.ammo
 	player_1_stats.armor = tank_1.armor
 	player_2_stats.ammo = tank_2.ammo
 	player_2_stats.armor = tank_2.armor
 
-func _process(_delta: float) -> void:
+func _process(delta: float) -> void:
+	if Explosion.camera_shake_amount > 0:
+		var shake := Vector2( 
+			randf_range(-CAMERA_SHAKE_MAGNITUDE, CAMERA_SHAKE_MAGNITUDE) * Explosion.camera_shake_amount,
+			randf_range(-CAMERA_SHAKE_MAGNITUDE, CAMERA_SHAKE_MAGNITUDE) * Explosion.camera_shake_amount)
+		camera.offset = camera_initial_offset + shake
+		Explosion.camera_shake_amount = clamp(Explosion.camera_shake_amount - delta, 0.0, Explosion.MAXIMUM_TOTAL_EXPLOSION_SHAKE)
+		shaking = true
+	elif shaking:
+		camera.offset = camera_initial_offset
+		shaking = false
+	
 	if active_players == 2:
 		camera.position = (tank_1.position + tank_2.position) * 0.5
 		var zoom = get_viewport().size.x / (abs(tank_1.position.x - tank_2.position.x) + 2 * BORDER_SIZE)
